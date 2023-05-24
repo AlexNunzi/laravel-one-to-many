@@ -10,6 +10,12 @@
                 </p>
             </li>
             <li>
+                <h3>Titolo del progetto:</h3>
+                <p>
+                    {{ $project->type ? $project->type->name : 'Nessuna tipologia associata' }}
+                </p>
+            </li>
+            <li>
                 <h4>Data di inizio progetto:</h4>
                 <p>
                     {{ $project->start_date }}
