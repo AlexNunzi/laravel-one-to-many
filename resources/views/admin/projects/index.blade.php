@@ -8,6 +8,7 @@
                 <th scope="col">Titolo</th>
                 <th scope="col">Data inizio progetto</th>
                 <th scope="col">Data fine progetto</th>
+                <th scope="col">Tipologia del progetto</th>
                 <th scope="col">Opzioni</th>
             </tr>
         </thead>
@@ -18,16 +19,19 @@
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->start_date }}</td>
                     <td>{{ $project->end_date }}</td>
-                    <td class="d-flex">
-                        <a class="btn btn-primary mx-1" href="{{ route('admin.projects.show', $project->slug) }}">Info</a>
-                        <a class="btn btn-warning mx-1"
-                            href="{{ route('admin.projects.edit', $project->slug) }}">Modifica</a>
-                        <form id="form{{ $project->id }}" method="POST"
-                            action="{{ route('admin.projects.destroy', ['project' => $project->slug]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="form_delete btn btn-danger mx-1">Elimina</button>
-                        </form>
+                    <td>{{ $project->type ? $project->type->name : '-' }}</td>
+                    <td>
+                        <div class="d-flex">
+                            <a class="btn btn-primary mx-1" href="{{ route('admin.projects.show', $project->slug) }}">Info</a>
+                            <a class="btn btn-warning mx-1"
+                                href="{{ route('admin.projects.edit', $project->slug) }}">Modifica</a>
+                            <form id="form{{ $project->id }}" method="POST"
+                                action="{{ route('admin.projects.destroy', ['project' => $project->slug]) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="form_delete btn btn-danger mx-1">Elimina</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
             @empty
