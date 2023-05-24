@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTypeRequest;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 
 class TypeController extends Controller
@@ -28,7 +30,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.types.create');
     }
 
     /**
@@ -37,9 +39,23 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTypeRequest $request)
     {
-        //
+        $form_data = $request->validated();
+
+        $newType = new Type();
+
+        $newType->fill($form_data);
+        $newType->slug = str::slug($newType->name, '-');
+
+        $checkType = Type::where('slug', $newType->slug)->first();
+        if ($checkType) {
+            return back()->withInput()->withErrors(['slug' => 'Impossibile creare lo slug per questa tipologia, è necessario modificare il nome']);
+        }
+
+        $newType->save();
+
+        return redirect()->route('admin.types.show', ['type' => $newType->slug])->with('status', 'Tipologia creata con successo!');
     }
 
     /**
@@ -50,7 +66,7 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        //
+        return view('admin.types.show', compact('type'));
     }
 
     /**

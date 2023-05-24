@@ -32,5 +32,5 @@
         </tbody>
     </table>
 
-    <a href="{{ route('admin.types.create') }}" class="btn btn-primary">Crea nuovo progetto</a>
+    <a href="{{ route('admin.types.create') }}" class="btn btn-primary">Crea nuova tipologia</a>
 @endsection
