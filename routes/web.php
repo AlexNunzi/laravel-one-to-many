@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified'])
             'projects' => 'project:slug'
         ]);
         Route::resource('types', TypeController::class)->parameters([
-            'types' => 'project:slug'
+            'types' => 'type:slug'
         ])->except(['delete']);
     });
 
