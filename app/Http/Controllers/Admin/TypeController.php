@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTypeRequest;
+use App\Http\Requests\UpdateTypeRequest;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -77,7 +78,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //
+        return view('admin.types.edit', compact('type'));
     }
 
     /**
@@ -87,9 +88,20 @@ class TypeController extends Controller
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Type $type)
+    public function update(UpdateTypeRequest $request, Type $type)
     {
-        //
+        $form_data = $request->validated();
+        $form_data['slug'] = str::slug($form_data['name'], '-');
+
+        $checkProject = Type::where('slug', $form_data['slug'])->where('id', '<>', $type->id)->first();
+
+        if ($checkProject) {
+            return back()->withInput()->withErrors(['slug' => 'Impossibile creare lo slug per questa tipologia, è necessario modificare il nome']);
+        }
+
+        $type->update($form_data);
+
+        return redirect()->route('admin.types.show', ['type' => $type->slug])->with('status', 'Tipologia aggiornata con successo!');
     }
 
     /**
