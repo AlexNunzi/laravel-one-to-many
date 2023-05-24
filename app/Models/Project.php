@@ -16,4 +16,9 @@ class Project extends Model
         'description',
         'slug'
     ];
+
+    public function type()
+    {
+        return $this->hasOne(Type::class);
+    }
 }
