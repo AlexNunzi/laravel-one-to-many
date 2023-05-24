@@ -25,7 +25,7 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             // Validator rules
-            'title' => 'required|max:150',
+            'title' => 'required|max:150|unique:projects',
             'start_date' => 'required',
             'end_date' => 'nullable',
             'description' => 'nullable|max:65535',
@@ -44,6 +44,7 @@ class StoreProjectRequest extends FormRequest
             // Validator messages
             'title.required' => 'Il campo Titolo è obbligatorio.',
             'title.max' => 'Il campo Titolo può contenere un massimo di 150 caratteri',
+            'title.unique' => 'Esiste già nel database un progetto con questo nome, inserirne uno nuovo',
             'start_date' => 'Il campo Data di inizio è obbligatorio',
             'description.max' => 'Il campo description può contenere un massimo di 65535 caratteri',
             'type_id.exists' => 'La categoria selezionata non esiste'
