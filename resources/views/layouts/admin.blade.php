@@ -32,6 +32,8 @@
                     </div>
 
                     <div class="col-10 p-5">
+                        @include('partials.messages')
+                        @include('partials.errors')
                         @yield('content')
                     </div>
                 </div>

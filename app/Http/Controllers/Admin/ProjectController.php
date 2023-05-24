@@ -54,7 +54,7 @@ class ProjectController extends Controller
 
         $newProject->save();
 
-        return redirect()->route('admin.projects.show', ['project' => $newProject->slug]);
+        return redirect()->route('admin.projects.show', ['project' => $newProject->slug])->with('status', 'Progetto creato con successo!');
     }
 
     /**
@@ -94,7 +94,7 @@ class ProjectController extends Controller
 
         $project->update($form_data);
 
-        return redirect()->route('admin.projects.show', ['project' => $project->slug]);
+        return redirect()->route('admin.projects.show', ['project' => $project->slug])->with('status', 'Progetto aggiornato con successo!');
     }
 
     /**
