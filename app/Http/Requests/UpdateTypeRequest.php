@@ -25,7 +25,7 @@ class UpdateTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:150', Rule::unique('types')->ignore($this->type)],
+            'name' => ['required', 'max:100', Rule::unique('types')->ignore($this->type)],
         ];
     }
 
@@ -39,6 +39,7 @@ class UpdateTypeRequest extends FormRequest
         return [
             // Validator messages
             'name.required' => 'Il campo Titolo è obbligatorio.',
+            'name.max' => 'Il campo Nome della tipologia può contenere un massimo di 100 caratteri',
             'name.unique' => 'Esiste già nel database una tipologia con questo nome, inserirne uno nuovo',
         ];
     }
