@@ -37,7 +37,7 @@ Route::middleware(['auth', 'verified'])
         ]);
         Route::resource('types', TypeController::class)->parameters([
             'types' => 'type:slug'
-        ])->except(['delete']);
+        ]);
     });
 
 
